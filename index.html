@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLM Chatbot Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="hero__title-group">
+          <h1 class="hero__title">LLM Chatbot Demo</h1>
+          <p class="hero__subtitle">
+            A lightweight web UI for chatting with any OpenAI-compatible LLM API.
+            Supply your own API key, tweak settings, and explore responses.
+          </p>
+        </div>
+        <button class="theme-toggle" aria-label="Toggle color theme" id="themeToggle">
+          <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀️</span>
+          <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">🌙</span>
+        </button>
+      </header>
+
+      <section class="settings" aria-label="Connection settings">
+        <form class="settings__form" id="settingsForm">
+          <div class="field-group">
+            <label class="field">
+              <span class="field__label">API Key</span>
+              <input
+                type="password"
+                id="apiKey"
+                name="apiKey"
+                placeholder="sk-..."
+                autocomplete="off"
+                required
+              />
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="rememberKey" />
+              <span>Remember key in this browser (stored locally)</span>
+            </label>
+          </div>
+          <div class="field-group field-group--grid">
+            <label class="field">
+              <span class="field__label">API Base URL</span>
+              <input
+                type="url"
+                id="apiBase"
+                name="apiBase"
+                placeholder="https://api.openai.com/v1"
+              />
+            </label>
+            <label class="field">
+              <span class="field__label">Model</span>
+              <input
+                type="text"
+                id="model"
+                name="model"
+                placeholder="gpt-4o-mini"
+              />
+            </label>
+            <label class="field">
+              <span class="field__label">Temperature</span>
+              <input
+                type="number"
+                id="temperature"
+                name="temperature"
+                min="0"
+                max="2"
+                step="0.1"
+                value="0.7"
+              />
+            </label>
+          </div>
+          <div class="settings__actions">
+            <button type="submit" class="button button--primary">Save settings</button>
+            <button type="button" class="button button--ghost" id="resetSettings">Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <main class="chat" aria-live="polite">
+        <div class="chat__messages" id="messages" role="log"></div>
+        <form class="chat__composer" id="chatForm">
+          <textarea
+            id="userMessage"
+            placeholder="Ask the model anything..."
+            rows="1"
+            required
+          ></textarea>
+          <button type="submit" class="button button--primary" id="sendButton">Send</button>
+        </form>
+      </main>
+
+      <section class="info">
+        <h2>About this demo</h2>
+        <p>
+          This static site is designed for GitHub Pages and works with any API that
+          follows the
+          <a href="https://platform.openai.com/docs/guides/text-generation/chat-completions-api"
+            >OpenAI Chat Completions</a
+          >
+          protocol. Your API key is never stored on our servers &mdash; all requests are made
+          directly from your browser.
+        </p>
+        <details>
+          <summary>Usage tips</summary>
+          <ul>
+            <li>
+              Use the settings panel above to paste your API key, change the base URL for
+              self-hosted gateways, or switch to a different model.
+            </li>
+            <li>
+              Toggle the sun/moon button to switch between light and dark themes. The choice
+              persists in localStorage.
+            </li>
+            <li>
+              Click "Reset" in the settings section to clear saved configuration, including
+              the remembered API key.
+            </li>
+          </ul>
+        </details>
+      </section>
+
+      <footer class="footer">
+        Built with ❤️ using vanilla HTML, CSS, and JavaScript.
+      </footer>
+    </div>
+
+    <template id="messageTemplate">
+      <article class="message">
+        <div class="message__role"></div>
+        <div class="message__text"></div>
+      </article>
+    </template>
+
+    <template id="loadingTemplate">
+      <article class="message message--assistant message--loading">
+        <div class="message__role">Assistant</div>
+        <div class="message__text">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,361 @@
+:root {
+  color-scheme: light;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --background: #f5f5f5;
+  --surface: #ffffff;
+  --text: #1f2933;
+  --text-muted: #52606d;
+  --border: #d2d6dc;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --background: #0f172a;
+  --surface: #111827;
+  --text: #f1f5f9;
+  --text-muted: #9ca3af;
+  --border: #1f2937;
+  --accent: #60a5fa;
+  --accent-hover: #93c5fd;
+  --shadow: 0 20px 40px rgba(15, 23, 42, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 4vw, 3rem) 4rem;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.hero__title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  margin: 0;
+}
+
+.hero__subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+  max-width: 48ch;
+  line-height: 1.6;
+}
+
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.theme-toggle__icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.settings,
+.chat,
+.info {
+  background: var(--surface);
+  border-radius: 1.2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.settings__form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.field-group {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.field-group--grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.field__label {
+  font-weight: 600;
+}
+
+.field input,
+.chat__composer textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.9);
+  color: inherit;
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme='dark'] .field input,
+[data-theme='dark'] .chat__composer textarea {
+  background: rgba(17, 24, 39, 0.8);
+}
+
+.field input:focus,
+.chat__composer textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+
+.checkbox input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.settings__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  border-radius: 0.75rem;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    color 0.2s ease;
+}
+
+.button--primary {
+  background: var(--accent);
+  color: white;
+}
+
+.button--primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.button--ghost:hover {
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.chat {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 1rem;
+  height: 70vh;
+  max-height: 720px;
+}
+
+.chat__messages {
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.message {
+  display: grid;
+  gap: 0.35rem;
+  background: rgba(37, 99, 235, 0.08);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+}
+
+.message__role {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.message__text {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.message--user {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.message--user .message__role {
+  color: #0f766e;
+}
+
+.message--error {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.24);
+}
+
+.message--error .message__role {
+  color: #ef4444;
+}
+
+[data-theme='dark'] .message {
+  background: rgba(37, 99, 235, 0.12);
+  border-color: rgba(96, 165, 250, 0.2);
+}
+
+[data-theme='dark'] .message--user {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.chat__composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+}
+
+.chat__composer textarea {
+  resize: none;
+  min-height: 3rem;
+  max-height: 12rem;
+}
+
+.message--loading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.message--loading .message__text {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0.6;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.9);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.info h2 {
+  margin-top: 0;
+}
+
+.info summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translate(-50%, 1rem);
+  padding: 0.75rem 1.5rem;
+  background: var(--surface);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  color: var(--text);
+  z-index: 999;
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chat {
+    height: 65vh;
+  }
+}
